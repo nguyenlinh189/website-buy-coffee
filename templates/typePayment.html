@@ -1,0 +1,231 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Coffee - checkout page</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+	<!-- CSS 
+    ========================= -->
+	<!--bootstrap min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<!--owl carousel min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+	<!--slick min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/slick.css}">
+	<!--magnific popup min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+	<!--font awesome css-->
+	<link rel="stylesheet" th:href="@{/assets/css/font.awesome.css}">
+	<!--animate css-->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<!--jquery ui min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/jquery-ui.min.css}">
+	<!--slinky menu css-->
+	<link rel="stylesheet" th:href="@{/assets/css/slinky.menu.css}">
+	<!--plugins css-->
+	<link rel="stylesheet" th:href="@{/assets/css/plugins.css}">
+	
+	<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+	
+	<!--modernizr min js here-->
+	<script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+
+	<!--header area start-->
+	<div th:replace="header :: fheader"></div>
+	<!--header area end-->
+
+	<!--breadcrumbs area start-->
+	<div class="breadcrumbs_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="breadcrumb_content">
+						<h3>Checkout</h3>
+						<ul>
+							<li><a href="index.html">home</a></li>
+							<li>Thông tin vận chuyển</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--breadcrumbs area end-->
+
+	<!--Checkout page section-->
+	
+	<!--Checkout page section end-->
+	<div class="Checkout_section  mt-100" id="accordion">
+        <div class="container">
+            <div class="checkout_form">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <form th:action="@{payment/infor}">
+                            <h3>Phương thức thanh toán</h3>
+                            <button type="button" class="andro_social-login-btn google" style="background: #DC4A38">
+									<a th:href="@{/payment/cod}">Thanh toán khi nhận hàng</a>
+								</button>
+                            <div id="paypal-button-container"></div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <form action="#">
+                            <h3>Đơn đặt hàng</h3>
+                            <div class="order_table table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody th:each="item : ${cart}">
+                                        <tr>
+											<td><span th:text="${item.product.name}"></span> <strong>
+														× <span th:text="${item.quantity}"}></span>
+												</strong></td>
+												<td><span th:text="${item.total}"></span></td>
+										</tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+											<th>Tạm tính</th>
+											<td><p th:text="${session.subtotal}+' VND'"></p></td>
+										</tr>
+										<tr>
+											<th>Phí ship</th>
+											<td><strong>30000.0 VND</strong></td>
+										</tr>
+										<tr class="order_total">
+											<th>Tổng tiền</th>
+											<td><strong><p th:text="${session.total}+' VND'"></p></strong></td>
+										</tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=Ae6FZ1gsQmqcThmPotgSHH4C9a_dJrPcOlt1f-U2NE8QYFon9KCWgASzwKnJAj7TBsDCi3wiII6qh-zN"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+       paypal.Buttons({
+    	   createOrder: function(data,actions){
+    		   return actions.order.create({
+    			   intent:'CAPTURE',
+    			   payer:{
+    				   email_address:"sb-l9dwh25705476@personal.example.com"
+    			   },
+    			   purchase_units:[{
+    				   amount:{
+    					   value:"[[${usd}]]",
+    					   currency_code:"USD"
+    				   }
+    			   }]
+    		   });
+    	   },
+    	   onApprove: function(data,actions){
+    		   //payment approved
+    		   return actions.order.capture().then(function(details){
+    			   console.log(details);
+    			   orderId=details.id;
+    			   status=details.status;
+    			   email=details.payer.email_address;
+    			   name=details.payer.name.given_name+" "+details.payer.name.surname;
+    			   const shipping = details.purchase_units[0].shipping;
+    			   const addressLine1 = shipping.address.address_line_1;
+    			   const addressLine2 = shipping.address.address_line_2;
+    			   const adminArea2 = shipping.address.admin_area_2;
+    			   const adminArea1 = shipping.address.admin_area_1;
+    			   const postalCode = shipping.address.postal_code;
+    			   const countryCode = shipping.address.country_code;
+    			   const address=addressLine1+", "+addressLine2+", "+adminArea2+", "+adminArea1+", "+postalCode+", "+countryCode;
+    			   const phone = details.payer.phone;
+    			   s="https://coffee.com:8443/payment/paypal?orderid="+orderId
+    			   +"&email="+email
+				   +"&name="+name
+				   +"&shipping="+address;
+    			   alert("thank for your payment!"+orderId+"; Status: "+status);
+    			   window.location.href=s;
+    		   });
+    	   },
+    	   onCancel: function(data){
+    		   //payment cancelled
+    		   alert("payment canceled");
+    	   },
+    	   onError: function(err){
+    		   alert("Something wrong with your address information that that prevents checkout ");
+    	   }
+       }).render("#paypal-button-container");
+    </script>
+	<!--news letter popup start-->
+            <div class="newletter-popup" th:if=${mark==1}>
+                <div id="boxes" class="newletter-container">
+                    <div id="dialog" class="window">
+                        <div id="popup2">
+                            <span class="b-close"><span>close</span></span>
+                        </div>
+                        <div class="box">
+                            <div class="newletter-title">
+                                <h2>Thông báo</h2>
+                            </div>
+                            <div class="box-content newleter-content">
+                                <label class="newletter-label">Bạn đã thanh toán thành công</label>
+                            </div>
+                            <p style="color: yellowgreen ; text-align: center" ><a th:href="@{/}">Trở về</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+	<!--footer area start-->
+	<div th:replace="footer :: ffoot"></div>
+	<!--footer area end-->
+
+
+	<!-- JS
+============================================ -->
+	<script th:src="@{/assets/js/vendor/jquery-3.4.1.min.js}"></script>
+	<!--popper min js-->
+	<script th:src="@{/assets/js/popper.js}"></script>
+	<!--bootstrap min js-->
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!--owl carousel min js-->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<!--slick min js-->
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+	<!--magnific popup min js-->
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<!--counterup min js-->
+	<script th:src="@{/assets/js/jquery.counterup.min.js}"></script>
+	<!--jquery countdown min js-->
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<!--jquery ui min js-->
+	<script th:src="@{/assets/js/jquery.ui.js}"></script>
+	<!--jquery elevatezoom min js-->
+	<script th:src="@{/assets/js/jquery.elevatezoom.js}"></script>
+	<!--isotope packaged min js-->
+	<script th:src="@{/assets/js/isotope.pkgd.min.js}"></script>
+	<!--slinky menu js-->
+	<script th:src="@{/assets/js/slinky.menu.js}"></script>
+	<!-- Plugins JS -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+
+	<!-- Main JS -->
+	<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

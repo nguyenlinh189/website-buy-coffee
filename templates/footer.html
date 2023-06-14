@@ -1,0 +1,89 @@
+<div th:fragment="ffoot">
+	<!-- Messenger Plugin chat Code -->
+		<div id="fb-root"></div>
+
+		<!-- Your Plugin chat code -->
+		<div id="fb-customer-chat" class="fb-customerchat">
+		</div>
+
+		<script>
+			var chatbox = document.getElementById('fb-customer-chat');
+			chatbox.setAttribute("page_id", "115872364459801");
+			chatbox.setAttribute("attribution", "biz_inbox");
+		</script>
+
+		<!-- Your SDK code -->
+		<script>
+			window.fbAsyncInit = function () {
+				FB.init({
+					xfbml: true,
+					version: 'v16.0'
+				});
+			};
+
+			(function (d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+	<footer class="footer_widgets">
+		<div class="footer_top">
+		<div class="container">
+			<div class="widgets_container widget_app">
+				<div class="footer_logo">
+					<a th:href="@{/}"><img th:src="@{/assets/img/logo/logo.png}" alt=""></a>
+				</div>
+				
+			</div>
+			<table style="display: flex;justify-content: center;">
+				<tr >
+					<td style="width: 500px;">
+						<div class="widgets_container contact_us">
+							<h3>Thời gian mở cửa</h3>
+							<p>
+								<span>Thứ hai - Thứ bảy:</span> 8AM - 10PM
+							</p>
+							<p>
+								<span>Thứ bảy:</span> 9AM-8PM
+							</p>
+							<p>
+								<span>Chủ nhật:</span> 14hPM-18hPM
+							</p>
+						</div>
+
+					</td>
+					<td>
+						<div class="fb-page">
+							<iframe
+								src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100082218500036&tabs=timeline&width=500&height=200&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=566794568881227"
+								width="500" height="200" style="border:none;overflow:hidden" scrolling="no"
+								frameborder="0" allowfullscreen="true"
+								allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+						</div>
+
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="footer_bottom">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-6 col-md-6">
+						<div class="copyright_area">
+							<p class="copyright-text">
+								&copy; 2021 <a href="index.html">Lukani</a>. Made with <i
+									class="fa fa-heart text-danger"></i> by <a
+									href="https://hasthemes.com/" target="_blank">HasThemes</a>
+							</p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>

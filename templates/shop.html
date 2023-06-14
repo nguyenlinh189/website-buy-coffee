@@ -1,0 +1,260 @@
+<!doctype html>
+<html class="no-js" lang="en" charset=UTF-8>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Coffee</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+	<!-- CSS 
+    ========================= -->
+	<!--bootstrap min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+	<!--owl carousel min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+	<!--slick min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/slick.css}">
+	<!--magnific popup min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+	<!--font awesome css-->
+	<link rel="stylesheet" th:href="@{/assets/css/font.awesome.css}">
+	<!--animate css-->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<!--jquery ui min css-->
+	<link rel="stylesheet" th:href="@{/assets/css/jquery-ui.min.css}">
+	<!--slinky menu css-->
+	<link rel="stylesheet" th:href="@{/assets/css/slinky.menu.css}">
+	<!--plugins css-->
+	<link rel="stylesheet" th:href="@{/assets/css/plugins.css}">
+
+	<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
+
+	<!-- Main Style CSS -->
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	<!--modernizr min js here-->
+	<script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+
+	<!--header area start-->
+	<div th:replace="header :: fheader"></div>
+	<!--header area end-->
+
+	<!--shop  area start-->
+	<div class="shop_area shop_reverse mt-100 mb-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-12">
+					<!--sidebar widget start-->
+					<aside class="sidebar_widget">
+						<div class="widget_inner">
+							<div class="widget_list widget_filter">
+							</div>
+
+						</div>
+					</aside>
+					<!--sidebar widget end-->
+				</div>
+				<div class="col-lg-9 col-md-12">
+					<!--shop wrapper start-->
+					<!--shop toolbar start-->
+					<div class="shop_toolbar_wrapper">
+						<div class="shop_toolbar_btn">
+
+							<button data-role="grid_3" type="button" class="active btn-grid-3" data-bs-toggle="tooltip"
+								title="3"></button>
+
+							<button data-role="grid_4" type="button" class=" btn-grid-4" data-bs-toggle="tooltip"
+								title="4"></button>
+
+							<button data-role="grid_list" type="button" class="btn-list" data-bs-toggle="tooltip"
+								title="List"></button>
+						</div>
+						<div class=" niceselect_option">
+							<form th:action="@{/shop/sort}" method="get">
+                                <select name="orderby" id="short" class="select_option">
+                                    <option value="1" th:if=${session.orderby=='1'} selected="selected">Khuyến mãi</option>
+                                    <option value="1" th:unless=${session.orderby=='1'}>Khuyến mãi</option>
+                                    <option value="2" th:if=${session.orderby=='2'} selected="selected">Sắp xếp theo tên A_Z</option>
+                                    <option value="2" th:unless=${session.orderby=='2'} >Sắp xếp theo tên A_Z</option>
+                                    <option value="3" th:if=${session.orderby=='3'} selected="selected" >Sắp xếp theo tên Z_A</option>
+                                    <option value="3" th:unless=${session.orderby=='3'} >Sắp xếp theo tên Z_A</option>
+                                    <option value="4" th:if=${session.orderby=='4'} selected="selected">Sắp xếp theo giá :từ cao đến thấp</option>
+                                    <option value="4" th:unless=${session.orderby=='4'} >Sắp xếp theo giá :từ cao đến thấp</option>
+                                    <option value="5" th:if=${session.orderby=='5'} selected="selected" >Sắp xếp theo giá: từ thấp đến cao</option>
+                                    <option value="5" th:unless=${session.orderby=='5'} >Sắp xếp theo giá: từ thấp đến cao</option>
+                                    <option value="6" th:if=${session.orderby=='6'} selected="selected" >Sản phẩm bán chạy</option>
+                                    <option value="6" th:unless=${session.orderby=='6'} >Sản phẩm bán chạy</option>
+                                </select>
+                                <button type="submit" class="btn btn-light">Lọc</button>
+                                </form>
+						</div>
+						<div class="page_amount">
+							<p>Showing
+								<th:value="${size}" th:text="${size}" /> results
+							</p>
+						</div>
+					</div>
+					<!--shop toolbar end-->
+
+					<div class="row shop_wrapper">
+						<th:block th:each="product: ${products}">
+							<div class="col-lg-4 col-md-4 col-12 ">
+								<article class="single_product">
+									<figure>
+										<div class="product_thumb">
+											<a class="primary_img"
+												th:href="@{'/product-details?id='+${product.id}}"><img
+													th:src="${product.linkImg}" alt="" style="height: 300px;width: 300px;"></a>
+											<div class="label_product">
+												<span class="label_sale" th:text="'-'+${product.discount}+'%'"></span>
+											</div>
+                                                    <div class="label_product" th:if=${product.quantity==0}>
+                                                        <span class="label_new">Hết</span>
+                                                    </div>
+											<div class="action_links">
+												<ul>
+													<li class="add_to_cart"><a
+															th:href="@{'/addToCart?productId='+${product.id}}"
+															title="Add to cart">
+															<i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+													</li>
+													<li class="quick_button"><a href="#" data-bs-toggle="modal"
+															data-bs-target="#modal_box" title="Quick View"> <i
+																class="fa fa-eye"></i></a></li>
+												</ul>
+											</div>
+											<div class="action_links list_action">
+												<ul>
+													<li class="quick_button"><a href="#" data-bs-toggle="modal"
+															data-bs-target="#modal_box" title="Quick View"> <i
+																class="fa fa-eye"></i></a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="product_content grid_content">
+											<div class="product_price_rating">
+
+												<h4 class="product_name"><a
+														th:href="@{'/product-details?id='+${product.id}}">
+														<th:value="${product.name}" th:text="${product.name}">
+													</a></h4>
+												<div class="price_box">
+													<span class="current_price"
+														th:text="${product.priceDiscount}+' VND'"></span>
+													<span class="old_price" th:text="${product.price}+' VND'"></span>
+												</div>
+											</div>
+										</div>
+										<div class="product_content list_content">
+											<h4 class="product_name"><a
+													th:href="@{'/product-details?id='+${product.id}}">
+													<th:value="${product.name}" th:text="${product.name}">
+												</a>
+											</h4>
+											<div class="price_box">
+												<span class="current_price"
+													th:text="${product.priceDiscount}+' VND'"></span>
+												<span class="old_price" th:text="${product.price}+' VND'"></span>
+											</div>
+											<div class="product_desc">
+												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+													eiusmod
+													tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+													veniam, quis nostrud exercitation ullamco…</p>
+											</div>
+											<div class="action_links list_action_right">
+												<ul>
+													<li class="add_to_cart"><a
+															th:href="@{'/addToCart?productId='+${product.id}}"
+															title="Add to cart">Add to cart</a></li>
+													<li class="wishlist"><a href="wishlist.html"
+															title="Add to Wishlist"><i class="fa fa-heart"></i></a></li>
+													<li class="compare"><a href="#" title="Add to Compare"><i
+																class="fa fa-sliders"></i></a></li>
+												</ul>
+											</div>
+										</div>
+									</figure>
+								</article>
+							</div>
+						</th:block>
+					</div>
+
+
+					<div class="shop_toolbar t_bottom">
+						<div class="pagination">
+							<ul>
+								<th:block th:each="num:${pages}">
+									<th:block th:if="${page == num}">
+										<li class="current"><a th:href="@{'/shop/page?page='+${num}}">
+												<th:value="${num}" th:text="${num}" />
+											</a></li>
+									</th:block>
+									<th:block th:unless="${page == num}">
+										<li><a th:href="@{'/shop/page?page='+${num}}">
+												<th:value="${num}" th:text="${num}" />
+											</a></li>
+									</th:block>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+					<!--shop toolbar end-->
+					<!--shop wrapper end-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--shop  area end-->
+
+	<!--footer area start-->
+	<div th:replace="footer :: ffoot"></div>
+	<!--footer area end-->
+
+	<!-- modal area start-->
+	<!-- modal area end-->
+
+
+	<!-- JS
+============================================ -->
+	<!--jquery min js-->
+	<script th:src="@{/assets/js/vendor/jquery-3.4.1.min.js}"></script>
+	<!--popper min js-->
+	<script th:src="@{/assets/js/popper.js}"></script>
+	<!--bootstrap min js-->
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!--owl carousel min js-->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<!--slick min js-->
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+	<!--magnific popup min js-->
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<!--counterup min js-->
+	<script th:src="@{/assets/js/jquery.counterup.min.js}"></script>
+	<!--jquery countdown min js-->
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<!--jquery ui min js-->
+	<script th:src="@{/assets/js/jquery.ui.js}"></script>
+	<!--jquery elevatezoom min js-->
+	<script th:src="@{/assets/js/jquery.elevatezoom.js}"></script>
+	<!--isotope packaged min js-->
+	<script th:src="@{/assets/js/isotope.pkgd.min.js}"></script>
+	<!--slinky menu js-->
+	<script th:src="@{/assets/js/slinky.menu.js}"></script>
+	<!-- Plugins JS -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+
+	<!-- Main JS -->
+	<script th:src="@{/assets/js/main.js}"></script>
+</body>
+
+</html>

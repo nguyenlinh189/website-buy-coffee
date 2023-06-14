@@ -1,0 +1,152 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Coffe</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS 
+    ========================= -->
+<!--bootstrap min css-->
+<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+<!--owl carousel min css-->
+<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.min.css}">
+<!--slick min css-->
+<link rel="stylesheet" th:href="@{/assets/css/slick.css}">
+<!--magnific popup min css-->
+<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+<!--font awesome css-->
+<link rel="stylesheet" th:href="@{/assets/css/font.awesome.css}">
+<!--animate css-->
+<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+<!--jquery ui min css-->
+<link rel="stylesheet" th:href="@{/assets/css/jquery-ui.min.css}">
+<!--slinky menu css-->
+<link rel="stylesheet" th:href="@{/assets/css/slinky.menu.css}">
+<!--plugins css-->
+<link rel="stylesheet" th:href="@{/assets/css/plugins.css}">
+
+<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
+<!--modernizr min js here-->
+<script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
+</head>
+<body>
+
+	<!--header area start-->
+	<div th:replace="header :: fheader"></div>
+	<!--header area end-->
+	<!--breadcrumbs area start-->
+	<div class="breadcrumbs_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="breadcrumb_content">
+						<h3>My Account</h3>
+						<ul>
+							<li><a th:href="@{/}">home</a></li>
+							<li>Đăng kí</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--breadcrumbs area end-->
+	<!-- customer login start -->
+	<div class="customer_login">
+		<div class="container">
+			<div class="row">
+				<!--login area start-->
+				<div class="col-6 mx-auto">
+					<div class="account_form">
+						<h2>Đăng ký</h2>
+						<form th:action="@{/registration}" method="post" th:object="${user}">
+							<div th:if="${error}">
+								<p p class="text-danger">Email da ton tai</p>
+							</div>
+							<p>
+								<label>Họ và tên <span>*</span></label> 
+								<input type="text" th:field="*{name}" required>
+							</p>
+							<p>
+								<label>Email <span>*</span></label> 
+								<input type="text" th:field="*{email}" required>
+							</p>
+							<p>
+								<label>Passwords <span>*</span></label>
+								<input type="password" th:field="*{password}" required>
+							</p>
+							<div class="login_submit">
+								<label for="remember">
+									<input id="remember" type="checkbox">ghi nhớ tôi
+								</label>
+								<button type="submit" style="background: #634832">Đăng ký</button>
+
+							</div>
+							<div class="andro_auth-seperator">
+								<span>OR</span>
+							</div>
+							<div class="andro_social-login">
+								<button type="button" class="andro_social-login-btn facebook"
+									style="background: #3B579D">
+									<a class="fa fa-facebook" th:href="@{/oauth2/authorization/facebook}"> Tiếp tục với
+										Facebook</a>
+								</button>
+								<button type="button" class="andro_social-login-btn google" style="background: #DC4A38">
+									<a class="fa fa-google-plus" th:href="@{/oauth2/authorization/google}">Tiếp tục với
+										Google</a>
+								</button>
+							</div>
+							<p>
+								Bạn đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a>
+							</p>
+						</form>
+					</div>
+				</div>
+				<!--login area start-->
+				<!--register area end-->
+			</div>
+		</div>
+	</div>
+	<!-- customer login end -->
+	<!--footer area start-->
+	<div th:replace="footer :: ffoot"></div>
+	<!--footer area end-->
+	<!-- JS
+============================================ -->
+	<script th:src="@{/assets/js/vendor/jquery-3.4.1.min.js}"></script>
+	<!--popper min js-->
+	<script th:src="@{/assets/js/popper.js}"></script>
+	<!--bootstrap min js-->
+	<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<!--owl carousel min js-->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<!--slick min js-->
+	<script th:src="@{/assets/js/slick.min.js}"></script>
+	<!--magnific popup min js-->
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<!--counterup min js-->
+	<script th:src="@{/assets/js/jquery.counterup.min.js}"></script>
+	<!--jquery countdown min js-->
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<!--jquery ui min js-->
+	<script th:src="@{/assets/js/jquery.ui.js}"></script>
+	<!--jquery elevatezoom min js-->
+	<script th:src="@{/assets/js/jquery.elevatezoom.js}"></script>
+	<!--isotope packaged min js-->
+	<script th:src="@{/assets/js/isotope.pkgd.min.js}"></script>
+	<!--slinky menu js-->
+	<script th:src="@{/assets/js/slinky.menu.js}"></script>
+	<!-- Plugins JS -->
+	<script th:src="@{/assets/js/plugins.js}"></script>
+
+	<!-- Main JS -->
+	<script th:src="@{/assets/js/main.js}"></script>
+</body>
+
+</html>
